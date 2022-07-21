@@ -1,18 +1,26 @@
 # Overview
 
-{Important!  Do not say in this section that this is college assignment.  Talk about what you are trying to accomplish as a software engineer to further your learning.}
+## Purpose
 
-{Provide a description for the software that you wrote to demonstrate the Erlang language.}
+My purpose was also to gain practice with and learn about the Erlang language. 
+My purpose in writing this software was to make Markdown to HTML converter. 
 
-{Describe your purpose for writing this software.}
+## Project Description
 
-{Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the software running and a walkthrough of the code.  Focus should be on sharing what you learned about the language syntax.}
+This this project is a converter of Markdown to HTML. It is not a perfect converter between Markdown and HTML (for example, "`* `" and "`- `" do not make separate unordered lists when used with one another), and it does not have all the features of Markdown. It has handling for:
+* Paragraphs
+* Unordered Lists
+* Headings
 
-[Software Demo Video](http://youtube.link.goes.here)
+## Video Demonstration
+
+Here is a demonstration of my software:
+
+[Software Demo Video](https://www.youtube.com/watch?v=b5Ck7CIU20U)
 
 # Development Environment
 
-Visual Studio Code - Very useful for writing code. Here are some of the extensions I used...
+Visual Studio Code - Very useful for writing code. Here are **some** of the extensions I used...
 * Erlang
 * Live Server
 * etc...
@@ -24,7 +32,6 @@ You could also say that I use the HTML and Markdown languages because my program
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
 * [erlang](https://www.erlang.org/downloads)
 * [visualstudio | marketplace](https://marketplace.visualstudio.com/items?itemName=pgourlain.erlang)
 * [github | byui-cse](https://github.com/byui-cse/cse121e-course)
@@ -42,14 +49,11 @@ You could also say that I use the HTML and Markdown languages because my program
 * [stackoverflow](https://stackoverflow.com/questions/40343580/displaying-long-lists-in-the-erlang-shell)
 * [programming-idioms](https://programming-idioms.org/idiom/12/check-if-list-contains-a-value/1064/erlang)
 * [wikipedia](https://en.wikipedia.org/wiki/Erlang_(programming_language))
-* []()
-* []()
-* []()
-* []()
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-* Item 1
-* Item 2
-* Item 3
+* Make the markdown_to_html actually return the html
+* Make "`* `" and "`- `" make separate unordered lists when used with one another
+* Add handling for more markdown functionality
+* Look into adding user input
+    * When markdown_to_html is called without a string, have it ask for a string from the user.
