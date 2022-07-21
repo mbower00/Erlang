@@ -12,12 +12,15 @@
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
-Visual Studio Code 
-erlang Extension
-etc...
+Visual Studio Code - Very useful for writing code. Here are some of the extensions I used...
+* Erlang
+* Live Server
+* etc...
 
-{Describe the programming language that you used and any libraries.}
+I used the Erlang language for this code. Here are libraries that I used: 
+* io - used for printing the screen
+* lists - used for some functions involving lists
+You could also say that I use the HTML and Markdown languages because my program is a (incomplete) Markdown to HTML converter.
 
 # Useful Websites
 

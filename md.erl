@@ -39,8 +39,8 @@ markdown_to_html(String) ->
     HtmlList = markdown_to_html_acc(seperate_words(String), [], []),
     HtmlString = combine_words(HtmlList),
     io:format("~n~~HTML FROM MARKDOWN~~~n~s~n~n", [HtmlString]),
-    display_tags_and_count([]),
-    display_words_and_count([]).
+    display_tags_and_count(HtmlList),
+    display_words_and_count(HtmlList).
 
 
 display_tags_and_count(HtmlList) when HtmlList == [] ->
@@ -57,6 +57,7 @@ display_words_and_count(HtmlList) when HtmlList == [] ->
     % this will not be called if the program works the way it should
     io:format("FROM: display_words_and_count/1 ~~NO ITEMS TO ANALYIZE (LIST EMPTY)~~~n~n");
 display_words_and_count(HtmlList) ->
+    % this will attempt to display tags and number of tags to the user.
     Words = lists:filter(fun(String) -> (not lists:member(60, String) and not (String == [])) end, HtmlList), % 60 is "<"
     WordsSize = lists:sum([1 || _ <- Words]),
     WordsString = combine_words(Words),
@@ -64,15 +65,18 @@ display_words_and_count(HtmlList) ->
 
 
 markdown_to_html_acc([H|T], Html, Tags) -> 
+    % This is a recursive function that uses a list of words in the markdown language and converts it to a list of the words in HTML
     case Tags of
         [] ->
             Tag = [],
             TagsTail = [];
-        _ ->
+        _ -> % if Tags is not empty
+            % get the head of Tags as Tag and the tail as TagsTail
             [Tag|TagsTail] = Tags
     end,
     case H of
         "#" when Tag == [] ->
+            % add the proper tag to the head of the html list and the proper end tag to the head of the Tags list
             markdown_to_html_acc(T, ["<h1>"|Html], ["</h1>"|Tags]);
         "##" when Tag == [] ->
             markdown_to_html_acc(T, ["<h2>"|Html], ["</h2>"|Tags]);
@@ -93,17 +97,22 @@ markdown_to_html_acc([H|T], Html, Tags) ->
         "-" when Tag == "</ul>" ->
             markdown_to_html_acc(T, ["<li>"|Html], ["</li>"|Tags]);
         "\n" -> 
+            % add Tag (the head of Tags) to the head of the html list and the TagsTail as the Tags list
             markdown_to_html_acc(T, [Tag|Html], TagsTail);
         _ when Tag == [] -> 
+            % when there is no current tag, make it a <p> tag
             markdown_to_html_acc(T, [H,"<p>"|Html], ["</p>"|Tags]);
         _ when Tag == "</ul>" -> 
+            % when there is a </ul> as the Tag, add it to the html list
             markdown_to_html_acc([H|T], [Tag|Html], TagsTail);
         _ ->
+            % "default", add the H to the html list
             markdown_to_html_acc(T, [H|Html], Tags)
     end;
 markdown_to_html_acc([], Html, [H|T]) ->
     markdown_to_html_acc([], [H|Html], T);
 markdown_to_html_acc([], Html, []) ->
+    % reverse the html list because we have been adding to the head
     lists:reverse(Html).
 
 
@@ -111,8 +120,9 @@ combine_words(Words) ->
     combine_words_acc(Words, []).
 
 combine_words_acc([H|T], Result) ->
-    SpaceH = H ++ " ",
-    combine_words_acc(T, Result ++ SpaceH);
+    % this is a recursive function that uses a list of strings and returns a single string of them combined
+    SpaceH = H ++ " ", % add a space to the end of H
+    combine_words_acc(T, Result ++ SpaceH); % recur with SpaceH added to Result
 combine_words_acc([], Result) ->
     Result.
 
@@ -146,5 +156,5 @@ seperate_words_acc([H|T], Word, Seperated) ->
     end;
 seperate_words_acc([], Word, Seperated) ->
     % if the String is empty, return the reversed Seperated list with 
-    % the reversed Word appended to it
+    % the reversed Word added to it
     lists:reverse([lists:reverse(Word)|Seperated]).
